@@ -11,19 +11,38 @@ import jakarta.persistence.Table;
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
-
+    private String username; // ✅ fixed typo here
+    private String password;
 
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String name, String email) {
+    public UserEntity(Long id, String name, String email, String username, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.username = username; // ✅ fixed here too
+        this.password = password;
+    }
+
+    public String getUsername() { // ✅ corrected getter
+        return username;
+    }
+
+    public void setUsername(String username) { // ✅ corrected setter
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {
@@ -49,7 +68,4 @@ public class UserEntity {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    
-
 }
