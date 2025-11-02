@@ -2,6 +2,7 @@ package com.zuna.demo.controllers;
 import com.zuna.demo.Repository.UserRepository;
 import com.zuna.demo.models.Users;
 import com.zuna.demo.userEntity.UserEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +38,9 @@ public class UserControllers {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @GetMapping
     public List<UserEntity> getUsers(){
         return userRepository.findAll();
@@ -45,6 +49,7 @@ public class UserControllers {
     @PostMapping
     public UserEntity createUser(@RequestBody UserEntity user){
         System.out.println("User created: " + user.getName() + ", " + user.getEmail());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
     @GetMapping("/{id}")
